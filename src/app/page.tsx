@@ -16,7 +16,12 @@ import useSenha from "@/hook/useSenha";
 
 export default function Home() {
   
-  const { armazenaSenha, mostraSenha, logout, senhaExiste, senhaNaoexiste, APP_PASSWORD } = useSenha();
+  const { armazenaSenha, 
+    logout, 
+    senhaExiste, 
+    senhaNaoexiste, 
+    APP_PASSWORD 
+  } = useSenha();
   const { 
     getALL,
     produtoSelected,
@@ -32,32 +37,10 @@ export default function Home() {
   } = useProdutos();
 
   //estados para login
-  const [senha, setSenha] = useState<any>('')
   const senhaRef = useRef<HTMLInputElement>(null)
-  const [loginVisible, setLoginVisible] = useState(true)
-  const tableJSX = (
-    <Box>
-          
-      <Title title="Cadastro de produto" className=" flex justify-center items-center lg:block lg:py-4 lg:ml-2"></Title>
-          {tableVisible ?
-          <> 
-            <Button onClick={newProduct} containerStyle="flex justify-center items-center lg:block" className=" mb-3 ml-2 text-center font-bold text-gray-900 rounded-md bg-purple-400 w-36 p-2
-            ">
-            Novo Produto
-            </Button>
-            <Tabela produtos={produtos} produtoSelected={produtoSelected} produtoDelete={produtoDelete}/>
-          </>
-          :
-          <Form 
-            produto={produto} 
-            cancelado={showTable}
-            productChange={saveProduct}
-          />  
-          }
-            <button onClick={logout}>SAIR!</button>
-      </Box>
-  )
-function handleSubmit (){
+  const [loginVisible, setLoginVisible] = useState<boolean>(true)
+
+ function handleSubmit (){
   event?.preventDefault()
   
   if(senhaRef?.current?.value === APP_PASSWORD){ //Logado com sucesso
@@ -83,17 +66,18 @@ function handleSubmit (){
       
     }
   
-}
+
+  }
 
   return (
 
     <Container>
       
       <h2 className=" text-white font-medium text-lg">Sistema de Cadastro de produtos V 0.1</h2>
-      {loginVisible && senhaNaoexiste ? <Login onSubmit={handleSubmit} inputRef={senhaRef}/>
+      {loginVisible && senhaNaoexiste 
+      ? <Login onSubmit={handleSubmit} inputRef={senhaRef}/>
         : false
         }
-
 
       {
       //Verificação de senha

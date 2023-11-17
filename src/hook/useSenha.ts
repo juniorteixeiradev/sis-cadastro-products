@@ -1,10 +1,13 @@
 import { useState } from "react";
 
 export default function useSenha(){
-
-    // const [senhaexiste, setSenhaexiste] = useState();
-    const APP_PASSWORD:string = '321';
     
+    const localGetPass = typeof window !== 'undefined' ? localStorage.getItem("pass"):null;
+    
+    const APP_PASSWORD:string = '321';
+    // const localGetPass = localStorage.getItem("pass");
+
+
     function armazenaSenha(senha:any){
         localStorage.setItem("pass", senha);
     }
@@ -16,8 +19,8 @@ export default function useSenha(){
         window.location.reload();
     }
 
-
-    const localGetPass = localStorage.getItem("pass");
+   
+    
     return {
         senhaExiste: localGetPass === '321',
         senhaNaoexiste: localGetPass != '321',
